@@ -354,7 +354,7 @@ public class SubLevelAssemblyHelper {
                 if (blockEntity instanceof final Clearable clearable) {
                     clearable.clearContent();
                 }else if (blockEntity != null) {
-                    SableAssemblyPlatform.INSTANCE.clearNonClearableContainerItems(blockEntity);
+                    SableAssemblyPlatform.INSTANCE.clearNonClearableContainerItems(blockEntity,tag);
                 }
 
                 final LevelChunk chunk = resultingAccelerator.getChunk(SectionPos.blockToSectionCoord(newPos.getX()), SectionPos.blockToSectionCoord(newPos.getZ()));

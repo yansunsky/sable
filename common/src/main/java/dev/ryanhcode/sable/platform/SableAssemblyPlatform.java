@@ -1,5 +1,6 @@
 package dev.ryanhcode.sable.platform;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.ApiStatus;
@@ -10,5 +11,5 @@ public interface SableAssemblyPlatform {
 
     void setIgnoreOnPlace(final Level level, final boolean ignore);
 
-    void clearNonClearableContainerItems(final BlockEntity blockEntity);
+    void clearNonClearableContainerItems(final BlockEntity blockEntity,final CompoundTag tag);
 }

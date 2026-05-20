@@ -15,12 +15,11 @@ public class SableAssemblyPlatformImpl implements SableAssemblyPlatform {
     }
 
     @Override
-    public void clearNonClearableContainerItems(final BlockEntity blockEntity) {
+    public void clearNonClearableContainerItems(final BlockEntity blockEntity,final CompoundTag tag) {
         try {
             final Level level = blockEntity.getLevel();
             if (level == null) return;
-            final CompoundTag oldTag = blockEntity.saveWithFullMetadata(level.registryAccess());
-            final String id = oldTag.getString("id");
+            final String id = tag.getString("id");
             final CompoundTag newTag = new CompoundTag();
             newTag.putString("id", id);
             blockEntity.loadWithComponents(newTag, level.registryAccess());
