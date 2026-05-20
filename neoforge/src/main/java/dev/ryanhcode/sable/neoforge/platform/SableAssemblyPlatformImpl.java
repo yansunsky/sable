@@ -5,8 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.ApiStatus;
-import java.util.ArrayList;
-import java.util.List;
 
 @ApiStatus.Internal
 public class SableAssemblyPlatformImpl implements SableAssemblyPlatform {
@@ -18,30 +16,14 @@ public class SableAssemblyPlatformImpl implements SableAssemblyPlatform {
 
     @Override
     public void clearNonClearableContainerItems(final BlockEntity blockEntity) {
-        if (blockEntity == null) {
-            return;
-        }
         try {
             final Level level = blockEntity.getLevel();
-            if (level == null) {
-                return;
-            }
-            final CompoundTag tag = blockEntity.saveWithFullMetadata(level.registryAccess());
-            if (tag.isEmpty()) {
-                return;
-            }
-            final List<String> keysToRemove = new ArrayList<>();
-            for (final String key : tag.getAllKeys()) {
-                if (!key.equals("id")) {
-                    keysToRemove.add(key);
-                }
-            }
-            for (final String key : keysToRemove) {
-                tag.remove(key);
-            }
-            blockEntity.loadWithComponents(tag, level.registryAccess());
-        } catch (final Exception ignored) {
-
-        }
+            if (level == null) return;
+            final CompoundTag oldTag = blockEntity.saveWithFullMetadata(level.registryAccess());
+            final String id = oldTag.getString("id");
+            final CompoundTag newTag = new CompoundTag();
+            newTag.putString("id", id);
+            blockEntity.loadWithComponents(newTag, level.registryAccess());
+        } catch (final Exception ignored) {}
     }
 }
